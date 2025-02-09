@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { BarChart2, Share2, Bot } from 'lucide-react';
+import { BarChart2, Share2, Bot,Search } from 'lucide-react';
 import { Dashboard } from './pages/Dashboard';
 import { DependencyGraph } from './pages/DependencyGraph';
 import { AIAnalysis } from './pages/AIAnalysis';
+import { URLAnalysis } from './pages/URLAnalysis';
 
 function App() {
   return (
@@ -39,6 +40,15 @@ function App() {
                 <span>AI Analysis</span>
               </Link>
             </li>
+            <li>
+              <Link
+                to="/url-analysis"
+                className="flex items-center space-x-3 p-2 rounded hover:bg-gray-700 transition-colors"
+              >
+                <Search className="w-5 h-5" />
+                <span>URL Analysis</span>
+              </Link>
+            </li>
           </ul>
         </nav>
         
@@ -47,6 +57,7 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/graph" element={<DependencyGraph />} />
             <Route path="/ai-analysis" element={<AIAnalysis />} />
+            <Route path="/url-analysis" element={<URLAnalysis />} />
           </Routes>
         </main>
       </div>
