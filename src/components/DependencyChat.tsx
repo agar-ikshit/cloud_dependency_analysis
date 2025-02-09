@@ -30,7 +30,80 @@ export const DependencyChat: React.FC<DependencyChatProps> = ({ apiKey, dependen
   const analyzeWithAI = async (userMessage: string) => {
     try {
       setIsLoading(true);
-      const systemMessage = `You are a dependency analysis expert. Analyze the following dependency data and provide insights about potential risks and mitigation strategies. Here's the current dependency data: ${JSON.stringify(dependencyData)}`;
+      const systemMessage = `You are a dependency analysis expert. Analyze the following dependency data and provide insights about potential risks and mitigation strategies. Here's the current dependency data:
+
+=== Cloud Security Report ===
+
+
+- AddNumbers (serverless)
+  Risk Score: 12.50%
+
+
+- AWSServiceRoleForAPIGateway (identity)
+  Risk Score: 12.50%
+
+
+- AWSServiceRoleForSupport (identity)
+  Risk Score: 12.50%
+
+- AWSServiceRoleForTrustedAdvisor (identity)
+  Risk Score: 12.50%
+
+- lambda-role (identity)
+  Risk Score: 14.50%
+
+=== Bottleneck Analysis ===
+ 4 bottle necks
+🚨 Circular Dependency (Critical)
+1 circular dependecy
+- Dependency Chain: lambda-role → AddNumbers
+
+=== Actionable Recommendations ===
+
+🔧 For AWS Service Role:
+Review AWS service role: AWSServiceRoleForAPIGateway
+• Check cross-account access
+• Audit permissions scope
+• Review attached policies
+• Implement role session duration limits
+
+🔧 For AWS Service Role:
+Review AWS service role: AWSServiceRoleForSupport
+• Check cross-account access
+• Audit permissions scope
+• Review attached policies
+• Implement role session duration limits
+
+🔧 For AWS Service Role:
+Review AWS service role: AWSServiceRoleForTrustedAdvisor
+• Check cross-account access
+• Audit permissions scope
+• Review attached policies
+• Implement role session duration limits
+
+🔧 For Circular Dependency:
+Break circular dependency chain: lambda-role → AddNumbers
+• Implement dependency inversion
+• Consider event-driven architecture
+• Review IAM role relationships
+• Document dependency changes
+
+DEPENDENCY MAP:
+
+AddNumbers (aws):
+- Depends on: lambda-role (ResourceType.IDENTITY)
+
+AWSServiceRoleForAPIGateway (aws):
+- No dependencies found
+
+AWSServiceRoleForSupport (aws):
+- No dependencies found
+
+AWSServiceRoleForTrustedAdvisor (aws):
+- No dependencies found
+
+lambda-role (aws):
+- Depends on: AddNumbers (ResourceType.SERVERLESS)`;
       
       const completion = await openai.chat.completions.create({
         messages: [

@@ -89,9 +89,13 @@ export function URLAnalysis() {
         contentSecurityPolicy: response.headers.get('content-security-policy') !== null,
         xFrameOptions: response.headers.get('x-frame-options') !== null,
       };
-
-      // Calculate security score
-      const securityScore = Object.values(securityHeaders).filter(Boolean).length / 4;
+      
+      // Get the total number of headers actually checked (ignoring undefined ones)
+      const totalChecks = Object.keys(securityHeaders).length;
+      const securityScore = totalChecks > 0 
+        ? Object.values(securityHeaders).filter(Boolean).length / totalChecks 
+        : 0; // Prevent division by zero
+      
       
       // Calculate performance score
       const performanceScore = Math.max(0, Math.min(1, 1 - (responseTime / 2000)));
